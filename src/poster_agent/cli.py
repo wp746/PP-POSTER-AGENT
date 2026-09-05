@@ -22,6 +22,26 @@ def show(value):
     print(json.dumps(value,ensure_ascii=False,indent=2))
 
 
+def private_terminal_available():
+    if not sys.stdin or not sys.stdin.isatty():
+        return False
+    if os.name != "nt":
+        return True
+    # Windows NUL can pass isatty(); only a console input handle is usable.
+    import ctypes
+    import msvcrt
+    from ctypes import wintypes
+    get_mode = ctypes.WinDLL("kernel32", use_last_error=True).GetConsoleMode
+    get_mode.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+    get_mode.restype = wintypes.BOOL
+    try:
+        handle = msvcrt.get_osfhandle(sys.stdin.fileno())
+        mode = wintypes.DWORD()
+        return bool(get_mode(handle, ctypes.byref(mode)))
+    except (OSError, ValueError):
+        return False
+
+
 def setup(args):
     image_url = args.base_url or PRESETS.get(args.provider)
     require(bool(image_url), "Custom provider requires --base-url")
@@ -31,7 +51,7 @@ def setup(args):
         image_key = os.environ.get("PP_IMAGE_KEY", "")
         vision_key = os.environ.get("PP_VISION_KEY", "") if split else image_key
     else:
-        require(sys.stdin.isatty(), "Configure in a private terminal, or use explicit PP_IMAGE_KEY/PP_VISION_KEY with --from-env")
+        require(private_terminal_available(), "Configure in a private terminal, or use explicit PP_IMAGE_KEY/PP_VISION_KEY with --from-env")
         image_key = getpass.getpass("Image provider API key (hidden): ")
         vision_key = getpass.getpass("Vision provider API key (hidden): ") if split else image_key
     require(bool(image_key.strip()) and bool(vision_key.strip()), "Empty key")
