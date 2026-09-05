@@ -7,11 +7,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def main():
     problems=[]
-    version=(ROOT/"VERSION").read_text().strip()
-    pyproject=(ROOT/"pyproject.toml").read_text()
+    version=(ROOT/"VERSION").read_text(encoding="utf-8").strip()
+    pyproject=(ROOT/"pyproject.toml").read_text(encoding="utf-8")
     if f'version = "{version}"' not in pyproject:problems.append("pyproject version mismatch")
     for f in ["README.md","CHANGELOG.md","START_HERE.md","docs/IMPLEMENTATION-STATUS.md"]:
-        if version not in (ROOT/f).read_text():problems.append(f+": version missing")
+        if version not in (ROOT/f).read_text(encoding="utf-8"):problems.append(f+": version missing")
     listed=subprocess.run(["git","ls-files","--cached","--others","--exclude-standard","-z"],cwd=ROOT,
                           check=True,capture_output=True).stdout.decode().split("\0")
     files=sorted(set(x for x in listed if x))
@@ -24,7 +24,7 @@ def main():
         path=ROOT/name
         if path.is_symlink():problems.append(name+": symlink");continue
         if not path.is_file():continue
-        try: text=path.read_text()
+        try: text=path.read_text(encoding="utf-8")
         except UnicodeError:problems.append(name+": unexpected binary");continue
         if secret.search(text):problems.append(name+": potential secret detected")
         if re.search("/"+r"(?:Users|home)/[a-zA-Z0-9._-]+/",text):problems.append(name+": user-specific absolute path")

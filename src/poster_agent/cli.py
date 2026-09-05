@@ -315,6 +315,9 @@ def dispatch(a):
 
 
 def main():
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
     try:
         code=dispatch(parser().parse_args())
     except PosterError as exc:
