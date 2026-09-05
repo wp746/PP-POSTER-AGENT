@@ -15,7 +15,7 @@ from .contracts import validate_plan, validate_brief
 from .core import PosterError, atomic_write, digest, fingerprint, identifier, object_result, read_json, require, within, write_json
 from .engine import Engine, verify_delivery
 from .provider import Gateway
-from .store import Store, create_job, exclusive
+from .store import Store, create_job, exclusive, process_running
 
 
 def show(value):
@@ -67,13 +67,12 @@ def recover(args):
     if lock.exists():
         try:
             pid = int(lock.read_text())
-            os.kill(pid,0)
-        except ProcessLookupError:
-            lock.unlink()
+            running=process_running(pid)
         except (ValueError, OSError):
             raise PosterError("Cannot establish old process is stopped; inspect the lock manually") from None
         else:
-            raise PosterError("Recorded worker process is still alive; do not unlock it")
+            require(not running,"Recorded worker process is still alive; do not unlock it")
+            lock.unlink()
     with exclusive(args.job), Store(args.job) as s:
         s.snapshot()
         s.db.execute("UPDATE attempts SET status='UNKNOWN',error='PROCESS_INTERRUPTED' WHERE status='IN_FLIGHT'")

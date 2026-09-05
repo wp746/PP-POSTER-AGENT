@@ -197,3 +197,15 @@ def test_crash_marker_blocks_new_calls(job,brief):
         s.db.execute("INSERT INTO attempts(id,step,status) VALUES ('interrupted','base_0','IN_FLIGHT')");s.db.commit()
     with pytest.raises(PosterError,match="UNKNOWN"):Engine(job,g,20).run()
     assert g.vision_calls==0
+
+
+def test_liveness_probe_never_terminates_current_process():
+    import os
+    from poster_agent.store import process_running
+    assert process_running(os.getpid())
+    with pytest.raises(PosterError):process_running(0)
+
+
+def test_status_does_not_create_database_in_arbitrary_directory(tmp_path):
+    with pytest.raises(PosterError):Store(tmp_path)
+    assert not (tmp_path/"job.sqlite").exists()

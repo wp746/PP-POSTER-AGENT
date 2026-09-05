@@ -63,6 +63,7 @@ def create_job(brief_path: Path, workspace: Path) -> Path:
 
 class Store:
     def __init__(self, path: Path):
+        require((path/"input.json").is_file(), "Not an initialized poster job")
         require(not path.is_symlink() and not (path/"job.sqlite").is_symlink(), "Symlink database forbidden")
         self.path = path.resolve()
         self.db = sqlite3.connect(self.path / "job.sqlite", timeout=5)
@@ -134,3 +135,33 @@ def exclusive(job: Path):
         yield
     finally:
         path.unlink(missing_ok=True)
+
+
+def process_running(pid: int) -> bool:
+    require(pid>0,"Invalid worker PID")
+    if os.name=="nt":
+        # os.kill(pid, 0) is not a safe Windows liveness probe.
+        import ctypes
+        from ctypes import wintypes
+        kernel=ctypes.WinDLL("kernel32",use_last_error=True)
+        kernel.OpenProcess.argtypes=[wintypes.DWORD,wintypes.BOOL,wintypes.DWORD]
+        kernel.OpenProcess.restype=wintypes.HANDLE
+        kernel.GetExitCodeProcess.argtypes=[wintypes.HANDLE,ctypes.POINTER(wintypes.DWORD)]
+        kernel.CloseHandle.argtypes=[wintypes.HANDLE]
+        handle=kernel.OpenProcess(0x1000,False,pid)
+        if not handle:
+            require(ctypes.get_last_error()==87,"Cannot inspect worker process safely")
+            return False
+        try:
+            code=wintypes.DWORD()
+            require(bool(kernel.GetExitCodeProcess(handle,ctypes.byref(code))),"Cannot read worker status")
+            return code.value==259
+        finally:
+            kernel.CloseHandle(handle)
+    try:
+        os.kill(pid,0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        raise PosterError("Cannot inspect worker process safely") from None

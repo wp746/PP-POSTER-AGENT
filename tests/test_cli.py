@@ -8,7 +8,7 @@ from poster_agent.core import read_json
 
 def run(*args,cwd,env=None):
     return subprocess.run([sys.executable,"-m","poster_agent",*args],cwd=cwd,env=env,
-                          capture_output=True,text=True)
+                          stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=20)
 
 
 def test_clean_cli_doctor_requires_own_config(tmp_path):
