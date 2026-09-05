@@ -1,0 +1,9 @@
+include VERSION START_HERE.md AGENTS.md CHANGELOG.md requirements.lock Product-Spec.md
+graft docs
+graft prompts
+graft skills
+graft config
+graft examples
+graft scripts
+graft tests
+global-exclude __pycache__ *.py[cod]

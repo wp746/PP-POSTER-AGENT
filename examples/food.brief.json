@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "food",
+  "subject": "REPLACE_WITH_FOOD_PHOTO.png",
+  "subject_mode": "protected",
+  "font": "REPLACE_WITH_LICENSED_FONT.ttf",
+  "goal": "根据实际菜品与卖点设计新品 KV，保留结构与装盘",
+  "canvases": [[1152, 2048], [2048, 1152]],
+  "copy": [
+    {"id": "headline", "role": "headline", "text": "填写采用后的主标题"},
+    {"id": "subtitle", "role": "subtitle", "text": "填写采用后的副标题"},
+    {"id": "selling1", "role": "selling_point", "text": "填写真实卖点"}
+  ],
+  "facts": [],
+  "assets": [],
+  "documents": []
+}

@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "image": {"base_url": "https://yunwu.ai/v1", "model": "gpt-image-2", "key_ref": "image"},
+  "vision": {"base_url": "https://api.siliconflow.cn/v1", "model": "SELECT_ACTUAL_VISION_MODEL", "key_ref": "vision"}
+}

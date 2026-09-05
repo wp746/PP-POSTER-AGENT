@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "event",
+  "font": "REPLACE_WITH_LICENSED_FONT.ttf",
+  "goal": "从本届材料提炼主题，制作能看懂活动内容的宣传 KV",
+  "canvases": [[1152, 2048]],
+  "copy": [
+    {"id": "headline", "role": "headline", "text": "填写采用的主题或正式名"},
+    {"id": "time_place", "role": "contact", "text": "填写核实的时间地点"},
+    {"id": "action", "role": "action", "text": "填写实际行动方式"}
+  ],
+  "facts": [],
+  "documents": [],
+  "assets": [],
+  "research": []
+}
