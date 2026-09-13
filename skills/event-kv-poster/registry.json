@@ -1,0 +1,34 @@
+{
+  "name": "event-kv-poster",
+  "version": "1.0.0",
+  "defaults": {
+    "count": 3,
+    "aspect_ratio": "9:16",
+    "final_pixels": "2160x3840",
+    "variants": [
+      "A-context-grounded",
+      "B-activity-core",
+      "C-concept-creative"
+    ]
+  },
+  "styles": [
+    {"code":"P01","name":"空间嵌字","full_name":"透视建筑 × 空间嵌字海报","core":"超大标题物理嵌入建筑表面、曲线、开口与消失点；先建空间再放字。","inputs":["title","project","architecture","movement","subject","colors","support_copy"]},
+    {"code":"P02","name":"透视构字","full_name":"透视字体 × 空间构字海报","core":"字体本身成为主要空间结构，沿道路、走廊、楼梯或抽象空间伸展。","inputs":["title","project","scene","subject","perspective_type","colors","support_copy"]},
+    {"code":"P03","name":"密度编辑","full_name":"高密度编辑 × 展览视觉海报","core":"1个绝对主锚点+2–3个次锚点，高密度但有秩序。","inputs":["theme","cn_title","en_title","hero","irregular_image_method","edge_pressure","auxiliary_system","background_layer","colors","date_org"]},
+    {"code":"P04","name":"中轴对峙","full_name":"中轴夹景 × 双主体对峙海报","core":"稳定垂直中轴，左右主体夹压中央标题与信息。","inputs":["theme","cn_title","en_title","left_subject","right_subject","composition","background","title_color","material","date_venue"]},
+    {"code":"P05","name":"扇形流场","full_name":"扇形构图 × 曲线流场海报","core":"扇形/弧线/放射/运动弧线作为视觉骨架与节奏。","inputs":["theme","title","concept","fan_logic","visual_material","colors","typography","background","text_details"]},
+    {"code":"P06","name":"曲线编辑","full_name":"曲线骨架 × 当代社论海报","core":"唯一主曲线组织主体、文字、信息与留白。","inputs":["theme","cn_title","en_title","hero","curve_method","auxiliaries","primary","secondary","accent"]},
+    {"code":"P07","name":"穿梭巨字","full_name":"超大字体 × 主体穿梭空间海报","core":"巨字成为可信建筑结构，主体在字形中穿行/攀爬。","inputs":["brand","event","main_word","subject","architecture","movement","primary","accent"]},
+    {"code":"P08","name":"材质变字","full_name":"材质/光学变形 × 装置排版海报","core":"文字被织物、地形、镜面、水等介质物理改造。","inputs":["title","project","environment","mechanism","subject","primary"]},
+    {"code":"P09","name":"斜轴编辑","full_name":"斜向势能 × 文化编辑海报","core":"隐藏对角轴统一主视觉、标题、纹样、日期和留白。","inputs":["theme","cn_title","en_title","hero","pattern","primary","secondary","date_org"]},
+    {"code":"P10","name":"巨构黑场","full_name":"3D巨构字体 × 暗黑专辑封面海报","core":"暗场匿名人物+深挤出巨字+Swiss微信息。","inputs":["theme","main_title","subject","microcopy","accent"]},
+    {"code":"P11","name":"对角主轴","full_name":"对角构图 × 单轴张力海报","core":"先立斜轴，再组织主体、标题和留白；商业信息清晰。","inputs":["theme","subject_type","subject","cn_title","en_title","diagonal_method","axis","colors","date_org"]},
+    {"code":"P12","name":"汉字时尚","full_name":"超大汉字 × 几何人物时尚海报","core":"超大汉字做骨架，几何人物进行明确文化行为。","inputs":["theme","core_character","behavior","object_symbol","colors","support_copy"]},
+    {"code":"P13","name":"概念命题","full_name":"高级概念 × 文学命题海报","core":"巨大中文主词+唯一视觉隐喻+极简小字。","inputs":["core_word","keywords","fate_line","summary"]},
+    {"code":"P14","name":"轮廓夹景","full_name":"轮廓中轴 × 东方夹景海报","core":"左右轮廓围出中央空间，中央留白也是构图主体。","inputs":["theme","cn_title","en_title","left_contour","right_contour","center_content","framing_method","primary","secondary","date_venue"]},
+    {"code":"P15","name":"体积显字","full_name":"体积介质 × 空间显字海报","core":"悬丝/点阵/光束/线网从指定角度显现文字。","inputs":["main_word","project","medium","spatial_mechanism","subject","primary","support_copy"]},
+    {"code":"P16","name":"展陈装置","full_name":"博物馆装置 × 建筑展陈海报","core":"文字/卡片/品牌符号成为博物馆空间中的主展品。","inputs":["theme","installation_subject","architecture","mechanism","primary","secondary","support_copy"]},
+    {"code":"P17","name":"物理形变","full_name":"物理作用 × 空间形变海报","core":"PRESS/TWIST/FOLD/BALANCE等明确机制驱动文字变形。","inputs":["project","cn_title","en_title","main_word","mechanism","architecture","primary","secondary","date_location"]},
+    {"code":"P18","name":"城市社论","full_name":"城市建筑 × 青年社论海报","core":"青年人物+粗野建筑+巨型英文+空间图形统一透视场。","inputs":["main_title","concept","subject","architecture","spatial_graphic","accent","support_copy"]}
+  ]
+}
